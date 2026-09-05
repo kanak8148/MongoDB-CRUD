@@ -9,15 +9,18 @@
     <artifactId>MongoDBConnection</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <dependencies>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-        <!-- MongoDB Java Driver -->
+    <dependencies>
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>
-            <version>5.6.1</version>
+            <version>5.2.0</version>
         </dependency>
-
     </dependencies>
 
 </project>
