@@ -39,13 +39,18 @@ public class UserModel {
 		database.getCollection("employee").insertOne(doc);
 		System.out.println("Add employee "+user.getName()+" "+user.getAddress()+" "+user.getAge()+" "+user.getDob());
 	}
-	public void delete(UserDto user) {
-		
-		//int nextId = NextId();
-		//user.setId(nextId);
-		Document doc = new Document("id",user.getId());
-		database.getCollection("employee").deleteOne(doc);
-		System.out.println("Data Deleted "+user.getId());
-	}
+	public void update(UserDto user) {
+			
+			Document filter = new Document("id",user.getId());
+			Document update = new Document("$set",
+					new Document ("name", user.getName())
+						.append("age", user.getAge())
+						.append("gender", user.getGender())
+						.append("dob", user.getDob())
+						.append("address", user.getAddress()));
+
+			database.getCollection("employees").updateMany(filter, update);
+			System.out.println("Data updated: "+user.getId());
+		}
 	
 }

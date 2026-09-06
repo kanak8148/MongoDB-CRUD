@@ -1,27 +1,30 @@
-package in.com.mongo.config;
+package in.com.Mongo.config;
 
 public class TestUser {
 	public static void main(String[] args) {
-		//testadd();
-		testdelete();
-	}
 
-	private static void testdelete() {
 		UserModel model = new UserModel();
 		UserDto dto = new UserDto();
-		dto.setId(1); ;
-		model.delete(dto);
-		
-	}
 
-	private static void testadd() {
-		UserModel model = new UserModel();
-		UserDto dto = new UserDto();
-		dto.setName("shyam");
-		dto.setAge(29);
-		dto.setDob("1996-01-18");
-		dto.setAddress("agra");
+		dto.setName("karuna");
+		dto.setGender("female");
+		dto.setAge(21);
+		dto.setAddress("indore");
+		dto.setDob("19-11-2002");
 		model.add(dto);
+//		update();
+	}
+
+	private static void update() {
+		UserModel model = new UserModel();
+		UserDto dto = new UserDto();
+		dto.setId(1);
+		dto.setName("Harshit Shrivastava ");
+		dto.setGender("male");
+		dto.setAge(24);
+		dto.setAddress("Bhopal");
+
+		model.update(dto);
 
 	}
 
