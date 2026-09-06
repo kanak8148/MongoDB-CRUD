@@ -6,48 +6,46 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
 
 public class UserModel {
+
+	//mongoDatabase  variable name
+	private MongoDatabase database;
 	
-    private MongoDatabase database;
-
-    public UserModel() {
-        database = MongoDBConnection.getDatabase();
-        
-        
-        
-    }
-    
-    private int NextId() {
-        // employees collection mein se id ke hisab se descending sort karo, sirf 1 document lo (highest id wala)
-        Document highestIdDoc = database.getCollection("employees")
-                .find()
-                .sort(Sorts.descending("id"))
-                .limit(1)
-                .first();
-
-        if (highestIdDoc == null) {
-            // Agar collection khali hai (koi employee nahi hai abhi tak), toh id 1 se start karo
-            return 1;
-        }
-
-        int highestId = highestIdDoc.getInteger("id");
-        return highestId + 1;
-    }
-    
-    
-    
-	 public void add(UserDto user) {
-	        int nextId = NextId();
-	        user.setId(nextId);
-
-	        Document doc = new Document("id", user.getId())
-	                .append("name", user.getName())
-	                .append("age", user.getAge())
-	                .append("gender", user.getGender())
-	                .append("dob", user.getDob())
-	                .append("address", user.getAddress());
-
-	        database.getCollection("employees").insertOne(doc);
-	        
-	        System.out.println("Employee add ho gaya, ID: " + user.getId()+user.getAddress()+user.getAge());
-	    }
+	public UserModel() {
+		database = mongoDBConnection.getDatabase();
+	}
+	private int NextId() {
+		Document highestIdDoc = database.getCollection("employee")
+		.find()
+		.sort(Sorts.descending("id"))
+		.limit(1)
+		.first();
+		
+		if(highestIdDoc==null) {
+			return 1;
+			
+		}
+		int hightId = highestIdDoc.getInteger("id");
+		return hightId + 1;
+	}
+	public void add(UserDto user) {
+		int nextId = NextId();
+		user.setId(nextId);
+		
+		Document doc = new Document("id",user.getId())
+				.append("name", user.getName())
+				.append("age", user.getAge())
+				.append("dob", user.getDob())
+				.append("address", user.getAddress());
+		database.getCollection("employee").insertOne(doc);
+		System.out.println("Add employee "+user.getName()+" "+user.getAddress()+" "+user.getAge()+" "+user.getDob());
+	}
+	public void delete(UserDto user) {
+		
+		//int nextId = NextId();
+		//user.setId(nextId);
+		Document doc = new Document("id",user.getId());
+		database.getCollection("employee").deleteOne(doc);
+		System.out.println("Data Deleted "+user.getId());
+	}
+	
 }
